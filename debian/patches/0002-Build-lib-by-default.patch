@@ -1,0 +1,21 @@
+From: Kevin Murray <spam@kdmurray.id.au>
+Date: Tue, 1 Dec 2015 14:52:40 +1100
+Subject: Build lib by default
+
+---
+ Makefile | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+--- a/Makefile
++++ b/Makefile
+@@ -28,8 +28,8 @@
+ .PHONY: all
+ all:
+ 	$(MAKE) -C $(ZSTDDIR) $@
+-	$(MAKE) -C $(PRGDIR) $@ zstd32
+-	$(MAKE) -C $(TESTDIR) $@ all32
++	$(MAKE) -C $(PRGDIR) $@
++	$(MAKE) -C $(TESTDIR) $@
+ 
+ .PHONY: lib
+ lib:

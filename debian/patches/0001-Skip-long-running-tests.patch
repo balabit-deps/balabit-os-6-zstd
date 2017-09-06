@@ -1,0 +1,24 @@
+From: Kevin Murray <spam@kdmurray.id.au>
+Date: Tue, 1 Dec 2015 14:40:58 +1100
+Subject: Skip long-running tests
+
+---
+ tests/Makefile | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+--- a/tests/Makefile
++++ b/tests/Makefile
+@@ -183,11 +183,11 @@
+ 	file $(ZSTD)
+ 	ZSTD="$(QEMU_SYS) $(ZSTD)" ./playTests.sh $(ZSTDRTTEST)
+ 
+-test: test-zstd test-fullbench test-fuzzer test-zstream test-longmatch
++test: test-zstd test-zstream
+ 
+ test32: test-zstd32 test-fullbench32 test-fuzzer32 test-zstream32
+ 
+-test-all: test test32 valgrindTest
++test-all: test
+ 
+ test-zstd: ZSTD = $(PRGDIR)/zstd
+ test-zstd: zstd zstd-playTests

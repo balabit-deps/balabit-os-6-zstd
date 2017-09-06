@@ -1,0 +1,89 @@
+libzstd (1.3.1+dfsg-1) unstable; urgency=medium
+
+  * Team upload
+  * New upstream version
+  * Exclude examples from upstream tarball
+    Closes: #869581
+  * debhelper 10
+  * cme fix dpkg-control
+  * Standards-Version: 4.1.0 (no changes needed)
+  * Fix copyright
+
+ -- Andreas Tille <tille@debian.org>  Wed, 06 Sep 2017 15:29:29 +0200
+
+libzstd (1.2.0-1) unstable; urgency=medium
+
+  * New upstream release (Closes: #863159).
+
+ -- Olivier Sallou <osallou@debian.org>  Wed, 24 May 2017 11:28:27 +0000
+
+libzstd (1.1.2-1) unstable; urgency=medium
+
+  * Team upload.
+  * New upstream version 1.1.2
+
+ -- Sascha Steinbiss <satta@debian.org>  Sun, 15 Jan 2017 08:08:53 +0000
+
+libzstd (1.1.1-1) unstable; urgency=medium
+
+  * New upstream version 1.1.1 (Closes: #844248)
+  * Whitespace fix to d/control
+  * Ensure hardening flags pass through to compiler by appending to CPPFLAGS
+
+ -- Kevin Murray <kdmfoss@gmail.com>  Sun, 20 Nov 2016 16:12:58 +0100
+
+libzstd (1.1.0-1) unstable; urgency=medium
+
+  * New upstream version 1.1.0 (Closes: #839960)
+  * Change uploader email
+  * Build new pzstd binary, including manpage
+  * Fix miscellaneous issues with d/rules and d/*.install
+  * Move docs from libzstd-dev to the zstd binary
+
+ -- Kevin Murray <kdmfoss@gmail.com>  Sun, 13 Nov 2016 11:23:03 +0000
+
+libzstd (1.0.0-1) unstable; urgency=medium
+
+  * Imported Upstream version 1.0.0 (Closes: #836574)
+  * Bump library package name to libzstd1
+  * Changed project URLs, copyrights after move to facebook.
+  * d/rules: hardening=+all
+
+ -- Kevin Murray <kdmfoss@gmail.com>  Sun, 04 Sep 2016 14:45:24 +1000
+
+libzstd (0.8.0-1) unstable; urgency=medium
+
+  [ Kevin Murray ]
+  * New upstream version (Closes: #834114)
+
+  [ Andreas Tille ]
+  * hardening=+bindnow
+
+ -- Kevin Murray <kdmfoss@gmail.com>  Thu, 21 Jul 2016 10:56:02 +1000
+
+libzstd (0.5.1-1) unstable; urgency=medium
+
+  [ Kevin Murray ]
+  * New upstream version (fixes a FTBFS)
+  * Package pkgconfig file (Closes: #813854)
+  * Fix path to tagged archives in d/watch
+  * Add vcs URLs
+  * Bump to standards version 3.9.7
+
+  [ Mattia Rizzolo ]
+  * debian/rules: Remove a lot of uneeded comments and lines
+
+ -- Kevin Murray <kdmfoss@gmail.com>  Thu, 17 Mar 2016 12:59:04 +0000
+
+libzstd (0.4.7-1) unstable; urgency=low
+
+  * New upstream version
+  * Remove build date encoding to enable reproducible build
+
+ -- Kevin Murray <kdmfoss@gmail.com>  Wed, 03 Feb 2016 11:26:21 +0200
+
+libzstd (0.4.5-1) unstable; urgency=low
+
+  * Initial release (Closes: #806767)
+
+ -- Kevin Murray <kdmfoss@gmail.com>  Tue, 01 Dec 2015 13:54:36 +1100

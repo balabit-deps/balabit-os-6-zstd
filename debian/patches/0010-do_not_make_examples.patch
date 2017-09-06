@@ -1,0 +1,25 @@
+Author: Andreas Tille <tille@debian.org>
+Last-Update: Wed, 06 Sep 2017 14:57:07 +0200
+Bug-Debian: https://bugs.debian.org/869581
+Descriptions: examples needed to be removed from upstream tarball - do not try to
+ clean this directory which does not exist any more
+
+--- a/Makefile
++++ b/Makefile
+@@ -26,7 +26,7 @@ endif
+ default: lib-release zstd-release
+ 
+ .PHONY: all
+-all: | allmost examples manual
++all: | allmost manual
+ 
+ .PHONY: allmost
+ allmost:
+@@ -97,7 +97,6 @@ clean:
+ 	@$(MAKE) -C $(PRGDIR) $@ > $(VOID)
+ 	@$(MAKE) -C $(TESTDIR) $@ > $(VOID)
+ 	@$(MAKE) -C $(ZWRAPDIR) $@ > $(VOID)
+-	@$(MAKE) -C examples/ $@ > $(VOID)
+ 	@$(MAKE) -C contrib/gen_html $@ > $(VOID)
+ 	@$(RM) zstd$(EXT) zstdmt$(EXT) tmp*
+ 	@echo Cleaning completed

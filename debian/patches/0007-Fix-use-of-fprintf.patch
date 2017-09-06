@@ -1,0 +1,44 @@
+Description: Fix use of fprintf
+Author: Sascha Steinbiss <satta@debian.org>
+--- a/contrib/pzstd/Pzstd.h
++++ b/contrib/pzstd/Pzstd.h
+@@ -41,7 +41,7 @@
+       auto parameters = options.determineParameters();
+       cStreamPool.reset(new ResourcePool<ZSTD_CStream>{
+           [this, parameters]() -> ZSTD_CStream* {
+-            this->log(VERBOSE, "Creating new ZSTD_CStream\n");
++            this->log(VERBOSE, "%s\n", "Creating new ZSTD_CStream");
+             auto zcs = ZSTD_createCStream();
+             if (zcs) {
+               auto err = ZSTD_initCStream_advanced(
+@@ -59,7 +59,7 @@
+     } else {
+       dStreamPool.reset(new ResourcePool<ZSTD_DStream>{
+           [this]() -> ZSTD_DStream* {
+-            this->log(VERBOSE, "Creating new ZSTD_DStream\n");
++            this->log(VERBOSE, "%s\n", "Creating new ZSTD_DStream");
+             auto zds = ZSTD_createDStream();
+             if (zds) {
+               auto err = ZSTD_initDStream(zds);
+--- a/contrib/pzstd/Pzstd.cpp
++++ b/contrib/pzstd/Pzstd.cpp
+@@ -410,7 +410,7 @@
+     });
+     // Pass the output queue to the writer thread.
+     chunks.push(std::move(out));
+-    state.log(VERBOSE, "Starting a new frame\n");
++    state.log(VERBOSE, "%s\n", "Starting a new frame");
+     // Fill the input queue for the compression job we just started
+     status = readData(*in, ZSTD_CStreamInSize(), step, fd, &bytesRead);
+   }
+@@ -547,8 +547,8 @@
+     if (frameSize == 0) {
+       // We hit a non SkippableFrame ==> not compressed by pzstd or corrupted
+       // Pass the rest of the source to this decompression task
+-      state.log(VERBOSE,
+-          "Input not in pzstd format, falling back to serial decompression\n");
++      state.log(VERBOSE, "%s\n",
++          "Input not in pzstd format, falling back to serial decompression");
+       while (status == FileStatus::Continue && !state.errorHolder.hasError()) {
+         status = readData(*in, chunkSize, chunkSize, fd, &totalBytesRead);
+       }

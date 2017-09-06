@@ -1,0 +1,75 @@
+From: Kevin Murray <spam@kdmurray.id.au>
+Date: Mon, 14 Nov 2016 10:44:27 +1100
+Subject: Ensure CPPFLAGS makes it to the compiler
+
+---
+ lib/Makefile         | 11 +++++------
+ programs/Makefile    |  5 ++---
+ tests/Makefile       |  5 ++---
+ zlibWrapper/Makefile |  4 ++--
+ 4 files changed, 11 insertions(+), 14 deletions(-)
+
+--- a/lib/Makefile
++++ b/lib/Makefile
+@@ -23,9 +23,8 @@
+ LIBDIR ?= $(PREFIX)/lib
+ INCLUDEDIR=$(PREFIX)/include
+ 
+-CPPFLAGS+= -I. -I./common -DXXH_NAMESPACE=ZSTD_
+-CFLAGS  ?= -O3
+-CFLAGS  += -Wall -Wextra -Wcast-qual -Wcast-align -Wshadow -Wstrict-aliasing=1 \
++CPPFLAGS += -I. -I./common -DXXH_NAMESPACE=ZSTD_
++CFLAGS  += -O3 -Wall -Wextra -Wcast-qual -Wcast-align -Wshadow -Wstrict-aliasing=1 \
+            -Wswitch-enum -Wdeclaration-after-statement -Wstrict-prototypes -Wundef \
+            -Wpointer-arith
+ CFLAGS  += $(MOREFLAGS)
+@@ -67,17 +66,17 @@
+ libzstd.a: ARFLAGS = rcs
+ libzstd.a: $(ZSTD_FILES)
+ 	@echo compiling static library
+-	@$(CC) $(FLAGS) -c $^
+-	@$(AR) $(ARFLAGS) $@ *.o
++	$(CC) $(FLAGS) -c $^
++	$(AR) $(ARFLAGS) $@ *.o
+ 
+ $(LIBZSTD): LDFLAGS += -shared -fPIC -fvisibility=hidden
+ $(LIBZSTD): $(ZSTD_FILES)
+ 	@echo compiling dynamic library $(LIBVER)
+ ifneq (,$(filter Windows%,$(OS)))
+-	@$(CC) $(FLAGS) -DZSTD_DLL_EXPORT=1 -shared $^ -o dll\libzstd.dll
++	$(CC) $(FLAGS) -DZSTD_DLL_EXPORT=1 -shared $^ -o dll\libzstd.dll
+ 	dlltool -D dll\libzstd.dll -d dll\libzstd.def -l dll\libzstd.lib
+ else
+-	@$(CC) $(FLAGS) $^ $(LDFLAGS) $(SONAME_FLAGS) -o $@
++	$(CC) $(FLAGS) $^ $(LDFLAGS) $(SONAME_FLAGS) -o $@
+ 	@echo creating versioned links
+ 	@ln -sf $@ libzstd.$(SHARED_EXT_MAJOR)
+ 	@ln -sf $@ libzstd.$(SHARED_EXT)
+--- a/programs/Makefile
++++ b/programs/Makefile
+@@ -27,9 +27,8 @@
+ ALIGN_LOOP =
+ endif
+ 
+-CPPFLAGS+= -I$(ZSTDDIR) -I$(ZSTDDIR)/common -I$(ZSTDDIR)/dictBuilder
+-CFLAGS  ?= -O3
+-CFLAGS  += -Wall -Wextra -Wcast-qual -Wcast-align -Wshadow -Wstrict-aliasing=1 \
++CPPFLAGS += -I$(ZSTDDIR) -I$(ZSTDDIR)/common -I$(ZSTDDIR)/dictBuilder
++CFLAGS  += -O3 -Wall -Wextra -Wcast-qual -Wcast-align -Wshadow -Wstrict-aliasing=1 \
+           -Wswitch-enum -Wdeclaration-after-statement -Wstrict-prototypes -Wundef \
+           -Wpointer-arith
+ CFLAGS  += $(MOREFLAGS)
+--- a/tests/Makefile
++++ b/tests/Makefile
+@@ -28,9 +28,8 @@
+ TESTARTEFACT := versionsTest namespaceTest
+ 
+ 
+-CPPFLAGS= -I$(ZSTDDIR) -I$(ZSTDDIR)/common -I$(ZSTDDIR)/dictBuilder -I$(PRGDIR)
+-CFLAGS ?= -O3
+-CFLAGS += -Wall -Wextra -Wcast-qual -Wcast-align -Wshadow -Wstrict-aliasing=1 \
++CPPFLAGS += -I$(ZSTDDIR) -I$(ZSTDDIR)/common -I$(ZSTDDIR)/dictBuilder -I$(PRGDIR)
++CFLAGS += -O3 -Wall -Wextra -Wcast-qual -Wcast-align -Wshadow -Wstrict-aliasing=1 \
+           -Wswitch-enum -Wdeclaration-after-statement -Wstrict-prototypes -Wundef
+ CFLAGS += $(MOREFLAGS)
+ FLAGS   = $(CPPFLAGS) $(CFLAGS) $(LDFLAGS)
